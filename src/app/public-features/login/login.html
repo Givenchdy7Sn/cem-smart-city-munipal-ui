@@ -1,0 +1,31 @@
+<div class="container mt-5">
+  <div class="card border-0 shadow-sm p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h5 class="mb-0 fw-bold">Login</h5>
+    </div>
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+      <div *ngIf="formError" class="alert alert-danger">{{ formError }}</div>
+      <div class="row mb-3">
+        <div class="col-md-12 mb-3">
+          <label class="form-label fw-semibold">Username</label>
+          <input type="text" name="username" [(ngModel)]="loginData.username" #username="ngModel" required class="form-control bg-light" placeholder="Enter username">
+          <div *ngIf="username.invalid && username.touched" class="invalid-feedback d-block">
+            Username is required.
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-12 mb-3">
+          <label class="form-label fw-semibold">Password</label>
+          <input type="password" name="password" [(ngModel)]="loginData.password" #password="ngModel" required class="form-control bg-light" placeholder="Enter password">
+          <div *ngIf="password.invalid && password.touched" class="invalid-feedback d-block">
+            Password is required.
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary px-4" [disabled]="loginForm.invalid">Login</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from './layout/navbar/navbar';
 import { Sidebar } from './layout/sidebar/sidebar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,4 +12,10 @@ import { Sidebar } from './layout/sidebar/sidebar';
 })
 export class App {
   protected readonly title = signal('cem-smart-city-municipal-ui');
+  constructor(public router: Router) {}
+
+  
+  isLoginRoute(): boolean {
+    return this.router.url === '/login';
+  }
 }

@@ -1,15 +1,19 @@
 <div class="d-flex">
 
-  <app-sidebar></app-sidebar>
+  @if (!isLoginRoute()) {
+      <ng-container>
+    <app-sidebar></app-sidebar>
+  </ng-container>
+  }
 
-  <div class="flex-grow-1" style="margin-left:250px; height:100vh; overflow-y:auto;">
 
+  <div class="flex-grow-1" [style.margin-left]="isLoginRoute() ? '0' : '250px'" style="height:100vh; overflow-y:auto;">
+   
+    @if(!isLoginRoute()) {
     <app-navbar></app-navbar>
-
+    }
     <div class="p-4">
       <router-outlet></router-outlet>
     </div>
-
   </div>
-
 </div>
