@@ -15,6 +15,32 @@ import { EnumToLabelPipe } from '../../core/pipes/enum-to-label.pipe';
   styleUrl: './view-cremation-booking.scss',
 })
 export class ViewCremationBooking implements OnInit {
+    isSavingBurial = false;
+
+    saveBurialDetails() {
+      if (!this.booking || !this.booking.id || !this.booking.deceased) return;
+      this.isSavingBurial = true;
+      const deceased = this.booking.deceased;
+      const burialDetails = {
+        cemetery: deceased.cemetery,
+        graveNumber: deceased.graveNumber,
+        section: deceased.section,
+        burialOrderNo: deceased.burialOrderNo,
+        burialOrderDate: deceased.burialOrderDate,
+        certificateNo: deceased.certificateNo,
+        certificateDate: deceased.certificateDate,
+      };
+      this.cremationService.updateBurialDetails(this.booking.id, burialDetails).subscribe({
+        next: () => {
+          this.isSavingBurial = false;
+          // Optionally show a success message
+        },
+        error: () => {
+          this.isSavingBurial = false;
+          // Optionally show an error message
+        }
+      });
+    }
   booking: CremationBooking = {} as CremationBooking;
   isLoading = false;
   error: string | null = null;

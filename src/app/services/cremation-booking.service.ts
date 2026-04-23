@@ -11,6 +11,23 @@ import { CremationSlot } from '../models/cremation-slot.model';
   providedIn: 'root'
 })
 export class CremationService {
+    /**
+     * Push burial details to the backend for a given booking.
+     * @param bookingId The booking ID
+     * @param burialDetails The burial details DTO
+     * @returns Observable<any>
+     */
+    updateBurialDetails(bookingId: number, burialDetails: {
+      cemetery: string;
+      graveNumber: string;
+      section: string;
+      burialOrderNo: string;
+      burialOrderDate: string; // ISO date string (yyyy-MM-dd)
+      certificateNo: string;
+      certificateDate: string; // ISO date string (yyyy-MM-dd)
+    }): Observable<any> {
+      return this.http.put(`${this.apiUrl}/${bookingId}/burial`, burialDetails);
+    }
   private apiUrl = 'http://localhost:8080/api/internal/v1/municipality/cremation';
 
   constructor(private http: HttpClient) {}

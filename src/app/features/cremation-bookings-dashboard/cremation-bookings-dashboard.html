@@ -51,10 +51,12 @@
         <thead class="table-light">
         <tr>
           <th>Booking ID</th>
+          <th>Application Date</th>
           <th>Deceased Name</th>
+          <th>Deceased ID Number</th>
           <th>Funeral Parlour</th>
           <th>Crematorium</th>
-          <th>Date</th>
+          <th>Cremation Date</th>
           <th>Status</th>
           <th></th>
         </tr>
@@ -63,10 +65,12 @@
         <tbody *ngIf="bookings.length > 0; else noBookings">
           <tr *ngFor="let booking of bookings">
             <td>{{ booking.bookingRef }}</td>
+            <td>{{ (booking.applicationDate | date:'dd MMM yyyy') || '—' }}</td>
             <td>{{ booking.deceasedName ? booking.deceasedName : '—' }}</td>
+            <td>{{ !!booking.nationalId ? booking.nationalId : '—' }}</td>
             <td>{{ booking.funeralParlourName || '—' }}</td>
             <td>{{ booking.crematoriumName }}</td>
-            <td>{{ booking.cremationDate | date:'dd MMM yyyy' }}</td>
+            <td>{{ (booking.cremationDate | date:'dd MMM yyyy') || '—' }}</td>
             <td>
               <span class="badge"
                     [ngClass]="{

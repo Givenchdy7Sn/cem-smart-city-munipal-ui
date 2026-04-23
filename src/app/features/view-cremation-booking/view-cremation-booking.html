@@ -78,60 +78,29 @@
         <i class="bi bi-person"></i> Deceased Details
       </div>
       <div class="card-body">
-        <div class="row" *ngIf="booking.deceased">
-          <div class="col-md-3 mb-3">
-            <label class="form-label text-muted">First Name</label>
-            <p class="fw-semibold mb-0">{{ booking.deceased.firstName || '—' }}</p>
-          </div>
-          <div class="col-md-3 mb-3">
-            <label class="form-label text-muted">Last Name</label>
-            <p class="fw-semibold mb-0">{{ booking.deceased.lastName || '—' }}</p>
-          </div>
-          <div class="col-md-3 mb-3">
-            <label class="form-label text-muted">National ID</label>
-            <p class="fw-semibold mb-0">{{ booking.deceased.nationalId || '—' }}</p>
-          </div>
-          <div class="col-md-3 mb-3">
-            <label class="form-label text-muted">Gender</label>
-            <p class="fw-semibold mb-0">{{ booking.deceased.gender || '—' }}</p>
-          </div>
-        </div>
-        <div class="row" *ngIf="booking.deceased">
-          <div class="col-md-3 mb-3">
-            <label class="form-label text-muted">Date of Birth</label>
-            <p class="fw-semibold mb-0">{{ booking.deceased.dateOfBirth ? (booking.deceased.dateOfBirth | date:'dd MMM yyyy') : '—' }}</p>
-          </div>
-          <div class="col-md-3 mb-3">
-            <label class="form-label text-muted">Date of Death</label>
-            <p class="fw-semibold mb-0">{{ booking.deceased.dateOfDeath ? (booking.deceased.dateOfDeath | date:'dd MMM yyyy') : '—' }}</p>
-          </div>
-          <div class="col-md-3 mb-3">
-            <label class="form-label text-muted">Age</label>
-            <p class="fw-semibold mb-0">{{ booking.deceased.age || '—' }}</p>
-          </div>
-          <div class="col-md-3 mb-3">
-            <label class="form-label text-muted">Ethnicity</label>
-            <p class="fw-semibold mb-0">{{ booking.deceased.ethnicity || '—' }}</p>
-          </div>
-        </div>
-        <div class="row" *ngIf="booking.deceased">
-          <div class="col-md-4 mb-3">
-            <label class="form-label text-muted">Place of Death</label>
-            <p class="fw-semibold mb-0">{{ booking.deceased.placeOfDeath || '—' }}</p>
-          </div>
-          <div class="col-md-4 mb-3">
-            <label class="form-label text-muted">Cause of Death</label>
-            <p class="fw-semibold mb-0">{{ booking.deceased.causeOfDeath || '—' }}</p>
-          </div>
-          <div class="col-md-4 mb-3">
-            <label class="form-label text-muted">Death Certificate Number</label>
-            <p class="fw-semibold mb-0">{{ booking.deceased.deathCertificateNumber || '—' }}</p>
-          </div>
-        </div>
-        <div class="row" *ngIf="booking.deceased">
-          <div class="col-md-6 mb-3">
-            <label class="form-label text-muted">Last Known Address</label>
-            <p class="fw-semibold mb-0">{{ booking.deceased.lastKnownAddress || '—' }}</p>
+        <div *ngIf="booking.deceased">
+          <div class="row">
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">First Name</label><p class="fw-semibold mb-0">{{ booking.deceased.firstName || '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Last Name</label><p class="fw-semibold mb-0">{{ booking.deceased.lastName || '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">National ID</label><p class="fw-semibold mb-0">{{ booking.deceased.nationalId || '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Gender</label><p class="fw-semibold mb-0">{{ booking.deceased.gender || '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Marital Status</label><p class="fw-semibold mb-0">{{ booking.deceased.maritalStatus || '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Religion</label><p class="fw-semibold mb-0">{{ booking.deceased.religion || '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Date of Birth</label><p class="fw-semibold mb-0">{{ booking.deceased.dateOfBirth ? (booking.deceased.dateOfBirth | date:'dd MMM yyyy') : '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Date of Death</label><p class="fw-semibold mb-0">{{ booking.deceased.dateOfDeath ? (booking.deceased.dateOfDeath | date:'dd MMM yyyy') : '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Age</label><p class="fw-semibold mb-0">{{ booking.deceased.age || '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Ethnicity</label><p class="fw-semibold mb-0">{{ booking.deceased.ethnicity || '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Last Known Address</label><p class="fw-semibold mb-0">{{ booking.deceased.lastKnownAddress || '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Place of Death</label><p class="fw-semibold mb-0">{{ booking.deceased.placeOfDeath || '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Cause of Death</label><p class="fw-semibold mb-0">{{ booking.deceased.causeOfDeath || '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Method of Disposal of Ashes</label><p class="fw-semibold mb-0">{{ booking.deceased.methodOfDisposalOfAshes || '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Coffin Length</label><p class="fw-semibold mb-0">{{ booking.deceased.coffinLength != null ? booking.deceased.coffinLength : '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Coffin Width</label><p class="fw-semibold mb-0">{{ booking.deceased.coffinWidth != null ? booking.deceased.coffinWidth : '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Coffin Depth</label><p class="fw-semibold mb-0">{{ booking.deceased.coffinDepth != null ? booking.deceased.coffinDepth : '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Time Due At Cremation</label><p class="fw-semibold mb-0">{{ booking.deceased.timeDueAtCremation || '—' }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Chapel Service Required</label><p class="fw-semibold mb-0">{{ booking.deceased.requireChapelService === true ? 'Yes' : (booking.deceased.requireChapelService === false ? 'No' : '—') }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Has Pacemaker</label><p class="fw-semibold mb-0">{{ booking.deceased.hasPacemaker === true ? 'Yes' : (booking.deceased.hasPacemaker === false ? 'No' : '—') }}</p></div>
+            <div class="col-md-3 mb-3"><label class="form-label text-muted">Death Certificate Number</label><p class="fw-semibold mb-0">{{ booking.deceased.deathCertificateNumber || '—' }}</p></div>
           </div>
         </div>
         <div *ngIf="!booking.deceased" class="text-muted">No deceased details available.</div>
@@ -198,6 +167,10 @@
           <div class="col-md-4 mb-3">
             <label class="form-label text-muted">Municipality</label>
             <p class="fw-semibold mb-0">{{ booking.municipalityName || '—' }}</p>
+           </div>
+           <div class="col-md-4 mb-3">
+             <label class="form-label text-muted">Payment Type</label>
+            <p class="fw-semibold mb-0">{{ booking.cremationSlot.paymentType || '—' }}</p>
           </div>
           <div class="col-md-4 mb-3">
             <label class="form-label text-muted">Total Amount</label>
@@ -370,46 +343,55 @@
     </div>
 
     <!-- Burial Details Section -->
-    <div class="card shadow-sm mb-3 mt-4" *ngIf="booking?.deceased">
+    <div class="card shadow-sm mb-3 mt-4" *ngIf="booking.deceased && booking.deceased.methodOfDisposalOfAshes === 'Burial'">
       <div class="card-header">
-        <i class="bi bi-geo"></i> Burial Details
+        <i class="bi bi-geo"></i> Burial Details - <strong>Please note that burial is required for the deceased</strong>
       </div>
       <div class="card-body">
         <div class="row">
           <div class="col-md-4 mb-3">
             <label class="form-label text-muted">Cemetery</label>
-            <input class="form-control" [(ngModel)]="booking.deceased.cemetery" name="cemetery" placeholder="Enter cemetery">
+            <input class="form-control" [readOnly]="booking.status !== 'PENDING_APPROVAL'" [(ngModel)]="booking.deceased.cemetery" name="cemetery" placeholder="Enter cemetery">
           </div>
           <div class="col-md-4 mb-3">
             <label class="form-label text-muted">Grave Number</label>
-            <input class="form-control" [(ngModel)]="booking.deceased.graveNumber" name="graveNumber" placeholder="Enter grave number">
+            <input class="form-control" [readOnly]="booking.status !== 'PENDING_APPROVAL'" [(ngModel)]="booking.deceased.graveNumber" name="graveNumber" placeholder="Enter grave number">
           </div>
           <div class="col-md-4 mb-3">
             <label class="form-label text-muted">Section</label>
-            <input class="form-control" [(ngModel)]="booking.deceased.section" name="section" placeholder="Enter section">
+            <input class="form-control" [readOnly]="booking.status !== 'PENDING_APPROVAL'" [(ngModel)]="booking.deceased.section" name="section" placeholder="Enter section">
           </div>
         </div>
         <div class="row">
           <div class="col-md-4 mb-3">
             <label class="form-label text-muted">Burial Order No</label>
-            <input class="form-control" [(ngModel)]="booking.deceased.burialOrderNo" name="burialOrderNo" placeholder="Enter burial order no">
+            <input class="form-control" [(ngModel)]="booking.deceased.burialOrderNo" [readOnly]="booking.status !== 'PENDING_APPROVAL'" name="burialOrderNo" placeholder="Enter burial order no">
           </div>
           <div class="col-md-4 mb-3">
             <label class="form-label text-muted">Burial Order Date</label>
-            <input class="form-control" type="date" [(ngModel)]="booking.deceased.burialOrderDate" name="burialOrderDate">
+            <input class="form-control" type="date" [readOnly]="booking.status !== 'PENDING_APPROVAL'" [(ngModel)]="booking.deceased.burialOrderDate" name="burialOrderDate">
           </div>
           <div class="col-md-4 mb-3">
             <label class="form-label text-muted">Certificate No</label>
-            <input class="form-control" [(ngModel)]="booking.deceased.certificateNo" name="certificateNo" placeholder="Enter certificate no">
+            <input class="form-control" [readOnly]="booking.status !== 'PENDING_APPROVAL'" [(ngModel)]="booking.deceased.certificateNo" name="certificateNo" placeholder="Enter certificate no">
           </div>
         </div>
         <div class="row">
           <div class="col-md-4 mb-3">
             <label class="form-label text-muted">Certificate Date</label>
-            <input class="form-control" type="date" [(ngModel)]="booking.deceased.certificateDate" name="certificateDate">
+            <input class="form-control" [readOnly]="booking.status !== 'PENDING_APPROVAL'" type="date" [(ngModel)]="booking.deceased.certificateDate" name="certificateDate">
+          </div>
+        </div>
+        <div class="row mt-3" *ngIf="booking.status !== 'APPROVED' && booking.status !== 'REJECTED' && booking.status !== 'CANCELLED' && booking.status !== 'COMPLETED'">
+          <div class="col text-end">
+            <button class="btn btn-primary" [disabled]="isSavingBurial" (click)="saveBurialDetails()">
+              <span *ngIf="isSavingBurial" class="spinner-border spinner-border-sm me-2"></span>
+              Save Burial Details
+            </button>
           </div>
         </div>
       </div>
+      
     </div>
 
 

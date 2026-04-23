@@ -22,6 +22,8 @@ export interface CremationBooking {
   // Municipality Information
   municipalityId: number;
   municipalityName: string;
+  nationalId: string;
+  applicationDate: string;
 
   // Funeral Parlour Information
   funeralParlourId: number;

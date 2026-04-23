@@ -6,11 +6,13 @@ export interface Deceased {
   firstName: string;
   lastName: string;
   gender: Gender;
-  nationalId: string;
+  nationalId?: string;
   dateOfBirth: Date;
   dateOfDeath: Date;
+  maritalStatus?: string;
   age: number;
   ethnicity: string;
+  religion?: string;
   lastKnownAddress: string;
   placeOfDeath: string;
   causeOfDeath: string;
@@ -19,6 +21,7 @@ export interface Deceased {
   coffinWidth: number | null;
   coffinDepth: number | null;
   timeDueAtCremation: string;
+  requireChapelService?: boolean;
   hasPacemaker: boolean;
   deathCertificateNumber: string;
   requireBurial: boolean;

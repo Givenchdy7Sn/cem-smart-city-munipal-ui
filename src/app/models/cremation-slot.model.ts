@@ -8,4 +8,5 @@ export interface CremationSlot {
   cremationSlotEnum: CremationSlotEnum;
   slotTime: string;
   slotDate: string;
+  paymentType?: 'Bank Deposit' | 'EFT';
 }
