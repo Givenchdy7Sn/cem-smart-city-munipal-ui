@@ -1,0 +1,497 @@
+<div class="container-fluid">
+
+  <div class="d-flex align-items-center mb-3">
+    <button class="btn btn-outline-secondary me-3" (click)="goBack()">
+      <i class="bi bi-arrow-left"></i> Back
+    </button>
+    <h3 class="mb-0">Cremation Booking Details</h3>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Loading booking details...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <!-- Booking Details -->
+  <div *ngIf="booking && !isLoading">
+
+    <!-- Status & Reference -->
+    <div class="card shadow-sm mb-3">
+      <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <strong>Booking Reference: {{ booking.bookingRef }}</strong>
+        <span class="badge"
+              [ngClass]="{
+                'bg-success': booking.status === 'COMPLETED' || booking.status === 'APPROVED',
+                'bg-warning text-dark': booking.status === 'PENDING_APPROVAL' || booking.status === 'BOOKING_IN_PROGRESS',
+                'bg-danger': booking.status === 'REJECTED' || booking.status === 'CANCELLED',
+                'bg-info': booking.status === 'CREMATION_IN_PROGRESS'
+              }">
+          {{ booking.status | enumToLabel }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Funeral Parlour Information -->
+    <div class="card shadow-sm mb-3">
+      <div class="card-header">
+        <i class="bi bi-shop"></i> Funeral Parlour Information
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Name</label>
+            <p class="fw-semibold mb-0">{{ booking.funeralParlourName || '—' }}</p>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Business Registration</label>
+            <p class="fw-semibold mb-0">{{ booking.funeralParlourBusinessRegistration || '—' }}</p>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Address</label>
+            <p class="fw-semibold mb-0">{{ booking.funeralParlourAddress || '—' }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Phone</label>
+            <p class="fw-semibold mb-0">{{ booking.funeralParlourContactPhone || '—' }}</p>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Email</label>
+            <p class="fw-semibold mb-0">{{ booking.funeralParlourContactEmail || '—' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deceased Details -->
+    <div class="card shadow-sm mb-3">
+      <div class="card-header">
+        <i class="bi bi-person"></i> Deceased Details
+      </div>
+      <div class="card-body">
+        <div class="row" *ngIf="booking.deceased">
+          <div class="col-md-3 mb-3">
+            <label class="form-label text-muted">First Name</label>
+            <p class="fw-semibold mb-0">{{ booking.deceased.firstName || '—' }}</p>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label text-muted">Last Name</label>
+            <p class="fw-semibold mb-0">{{ booking.deceased.lastName || '—' }}</p>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label text-muted">National ID</label>
+            <p class="fw-semibold mb-0">{{ booking.deceased.nationalId || '—' }}</p>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label text-muted">Gender</label>
+            <p class="fw-semibold mb-0">{{ booking.deceased.gender || '—' }}</p>
+          </div>
+        </div>
+        <div class="row" *ngIf="booking.deceased">
+          <div class="col-md-3 mb-3">
+            <label class="form-label text-muted">Date of Birth</label>
+            <p class="fw-semibold mb-0">{{ booking.deceased.dateOfBirth ? (booking.deceased.dateOfBirth | date:'dd MMM yyyy') : '—' }}</p>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label text-muted">Date of Death</label>
+            <p class="fw-semibold mb-0">{{ booking.deceased.dateOfDeath ? (booking.deceased.dateOfDeath | date:'dd MMM yyyy') : '—' }}</p>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label text-muted">Age</label>
+            <p class="fw-semibold mb-0">{{ booking.deceased.age || '—' }}</p>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label text-muted">Ethnicity</label>
+            <p class="fw-semibold mb-0">{{ booking.deceased.ethnicity || '—' }}</p>
+          </div>
+        </div>
+        <div class="row" *ngIf="booking.deceased">
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Place of Death</label>
+            <p class="fw-semibold mb-0">{{ booking.deceased.placeOfDeath || '—' }}</p>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Cause of Death</label>
+            <p class="fw-semibold mb-0">{{ booking.deceased.causeOfDeath || '—' }}</p>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Death Certificate Number</label>
+            <p class="fw-semibold mb-0">{{ booking.deceased.deathCertificateNumber || '—' }}</p>
+          </div>
+        </div>
+        <div class="row" *ngIf="booking.deceased">
+          <div class="col-md-6 mb-3">
+            <label class="form-label text-muted">Last Known Address</label>
+            <p class="fw-semibold mb-0">{{ booking.deceased.lastKnownAddress || '—' }}</p>
+          </div>
+        </div>
+        <div *ngIf="!booking.deceased" class="text-muted">No deceased details available.</div>
+      </div>
+    </div>
+
+    <!-- Next of Kin -->
+    <div class="card shadow-sm mb-3" *ngIf="booking.nextOfKins && booking.nextOfKins.length > 0">
+      <div class="card-header">
+        <i class="bi bi-people"></i> Next of Kin
+      </div>
+      <div class="card-body">
+        <div *ngFor="let kin of booking.nextOfKins; let i = index" [class.border-top]="i > 0" [class.pt-3]="i > 0" [class.mt-3]="i > 0">
+          <h6 class="text-muted mb-2">Next of Kin {{ i + 1 }}</h6>
+          <div class="row">
+            <div class="col-md-3 mb-3">
+              <label class="form-label text-muted">Name</label>
+              <p class="fw-semibold mb-0">{{ kin.firstName }} {{ kin.lastName }}</p>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label class="form-label text-muted">ID Number</label>
+              <p class="fw-semibold mb-0">{{ kin.idNumber || '—' }}</p>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label class="form-label text-muted">Phone</label>
+              <p class="fw-semibold mb-0">{{ kin.phoneNumber || '—' }}</p>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label class="form-label text-muted">Email</label>
+              <p class="fw-semibold mb-0">{{ kin.email || '—' }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label text-muted">Address</label>
+              <p class="fw-semibold mb-0">
+                {{ kin.addressLine1 }}{{ kin.addressLine2 ? ', ' + kin.addressLine2 : '' }}{{ kin.addressLine3 ? ', ' + kin.addressLine3 : '' }}
+              </p>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label class="form-label text-muted">City / Province</label>
+              <p class="fw-semibold mb-0">{{ kin.city || '—' }}, {{ kin.province || '—' }}</p>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label class="form-label text-muted">Postal Code</label>
+              <p class="fw-semibold mb-0">{{ kin.postalCode || '—' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cremation Details -->
+    <div class="card shadow-sm mb-3">
+      <div class="card-header">
+        <i class="bi bi-building"></i> Cremation Details
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Crematorium</label>
+            <p class="fw-semibold mb-0">{{ booking.cremationSlot.name || '—' }}</p>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Municipality</label>
+            <p class="fw-semibold mb-0">{{ booking.municipalityName || '—' }}</p>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Total Amount</label>
+            <p class="fw-semibold mb-0">{{ booking.totalAmount ? ('R ' + booking.totalAmount) : '—' }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Cremation Date</label>
+            <p class="fw-semibold mb-0">{{ booking.cremationSlot.slotDate ? (booking.cremationSlot.slotDate | date:'dd MMM yyyy') : '—' }}</p>
+          </div>
+          <!-- <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Slot</label>
+            <p class="fw-semibold mb-0">{{ booking.cremationSlot.name || '—' }}</p>
+          </div> -->
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Slot Time</label>
+            <p class="fw-semibold mb-0">{{ booking.cremationSlot.slotTime || '—' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Documents -->
+    <div class="card shadow-sm mb-3">
+      <div class="card-header">
+        <i class="bi bi-file-earmark-text"></i> Documents
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Doctor Letter</label>
+            <p class="fw-semibold mb-0">
+              <span *ngIf="booking.doctorLetter">
+                {{ booking.doctorLetter.title }}
+              </span>
+              <span *ngIf="!booking.doctorLetter">—</span>
+            </p>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Death Certificate</label>
+            <p class="fw-semibold mb-0">
+              <span *ngIf="booking.deathCertificate">
+                {{ booking.deathCertificate.title }}
+              </span>
+              <span *ngIf="!booking.deathCertificate">—</span>
+            </p>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Summary Document</label>
+            <p class="fw-semibold mb-0">
+              <span *ngIf="booking.summaryDocument">
+                {{ booking.summaryDocument.title }}
+    
+              </span>
+              <span *ngIf="!booking.summaryDocument">—</span>
+            </p>
+          </div>
+        </div>
+        <div *ngIf="booking.allDocuments && booking.allDocuments.length > 0" class="mt-2">
+          <h6 class="text-muted">All Documents</h6>
+          <table class="table table-sm table-hover mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Created Date</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let doc of booking.allDocuments">
+                <td>{{ doc.title }}</td>
+                <td>{{ doc.documentType | enumToLabel }}</td>
+                <td>{{ doc.createdDate ? (doc.createdDate | date:'dd MMM yyyy') : '—' }}</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary" (click)="downloadDocument(doc)" title="Download">
+                    <i class="bi bi-download"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline / Audit Trail -->
+    <div class="card shadow-sm mb-3">
+      <div class="card-header">
+        <i class="bi bi-calendar-event"></i> Timeline
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3 mb-3">
+            <label class="form-label text-muted">Created On</label>
+            <p class="fw-semibold mb-0">{{ booking.createdOn ? (booking.createdOn | date:'dd MMM yyyy HH:mm') : '—' }}</p>
+            <small class="text-muted">{{ booking.createdByName }}</small>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label text-muted">Submitted</label>
+            <p class="fw-semibold mb-0">{{ booking.submissionDate ? (booking.submissionDate | date:'dd MMM yyyy HH:mm') : '—' }}</p>
+            <small class="text-muted">{{ booking.submittedByName }}</small>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label text-muted">Approved</label>
+            <p class="fw-semibold mb-0">{{ booking.approvedDate ? (booking.approvedDate | date:'dd MMM yyyy HH:mm') : '—' }}</p>
+            <small class="text-muted">{{ booking.approvedByName }}</small>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label text-muted">Rejection Reason</label>
+            <p class="fw-semibold mb-0">{{ booking.rejectionReason || '—' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tariffs -->
+    <div class="card shadow-sm mb-3" *ngIf="booking.cremationTariffs && booking.cremationTariffs.length > 0">
+      <div class="card-header">
+        <i class="bi bi-cash-stack"></i> Cremation Tariffs
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Description</th>
+              <th>Tariff</th>
+              <th>Saturday Tariff</th>
+              <th>Sunday Tariff</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let tariff of booking.cremationTariffs">
+              <td>{{ tariff.description }}</td>
+              <td>R {{ tariff.tariff }}</td>
+              <td>{{ tariff.saturdayTariff ? 'R ' + tariff.saturdayTariff : '—' }}</td>
+              <td>{{ tariff.sundayTariff ? 'R ' + tariff.sundayTariff : '—' }}</td>
+              <td>{{ tariff.category || '—' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Requested Corrections Section -->
+    <div *ngIf="booking.status === 'CORRECTION_NEEDED' && !!booking.correctionComments" class="card shadow-sm mb-3 border-warning">
+      <div class="card-header bg-warning text-dark">
+        <i class="bi bi-exclamation-triangle me-1"></i> Requested Corrections
+      </div>
+      <div class="card-body">
+        <div class="row mb-2">
+          <div class="col-md-6">
+            <small class="text-muted d-block">Sent Back By</small>
+            <strong>{{ booking.sentForCorrectionBy }}</strong>
+          </div>
+          <div class="col-md-6">
+            <small class="text-muted d-block">Date Sent Back</small>
+            <strong>{{ booking.sentForCorrectionDate | date:'dd MMM yyyy HH:mm' }}</strong>
+          </div>
+        </div>
+        <div class="mt-3">
+          <small class="text-muted d-block">Correction Comments</small>
+          <div class="border rounded p-3 bg-light mt-1">
+            {{ booking.correctionComments }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Burial Details Section -->
+    <div class="card shadow-sm mb-3 mt-4" *ngIf="booking?.deceased">
+      <div class="card-header">
+        <i class="bi bi-geo"></i> Burial Details
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Cemetery</label>
+            <input class="form-control" [(ngModel)]="booking.deceased.cemetery" name="cemetery" placeholder="Enter cemetery">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Grave Number</label>
+            <input class="form-control" [(ngModel)]="booking.deceased.graveNumber" name="graveNumber" placeholder="Enter grave number">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Section</label>
+            <input class="form-control" [(ngModel)]="booking.deceased.section" name="section" placeholder="Enter section">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Burial Order No</label>
+            <input class="form-control" [(ngModel)]="booking.deceased.burialOrderNo" name="burialOrderNo" placeholder="Enter burial order no">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Burial Order Date</label>
+            <input class="form-control" type="date" [(ngModel)]="booking.deceased.burialOrderDate" name="burialOrderDate">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Certificate No</label>
+            <input class="form-control" [(ngModel)]="booking.deceased.certificateNo" name="certificateNo" placeholder="Enter certificate no">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label text-muted">Certificate Date</label>
+            <input class="form-control" type="date" [(ngModel)]="booking.deceased.certificateDate" name="certificateDate">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Action Buttons -->
+    <div class="card shadow-sm mb-3" *ngIf="booking.status !== 'APPROVED' && booking.status !== 'REJECTED' && booking.status !== 'CANCELLED' && booking.status !== 'COMPLETED'">
+      <div class="card-body">
+        <div class="d-flex justify-content-end gap-2">
+          <button
+            class="btn btn-warning"
+            [disabled]="booking.status !== 'PENDING_APPROVAL'"
+            (click)="showCorrectionForm = !showCorrectionForm; showRejectForm = false"
+          >
+            <i class="bi bi-arrow-return-left me-1"></i> Request Corrections
+          </button>
+          <button
+            class="btn btn-danger"
+            [disabled]="booking.status !== 'PENDING_APPROVAL'"
+            (click)="showRejectForm = !showRejectForm; showCorrectionForm = false"
+          >
+            <i class="bi bi-x-circle me-1"></i> Reject
+          </button>
+          <button
+            class="btn btn-success"
+            [disabled]="isApproving || booking.status !== 'PENDING_APPROVAL'"
+            (click)="approveBooking()"
+          >
+            <i class="bi bi-check-circle me-1"></i>
+            {{ isApproving ? 'Approving...' : 'Approve' }}
+          </button>
+        </div>
+
+        <!-- Request Corrections Form -->
+        <div *ngIf="showCorrectionForm" class="mt-3 border-top pt-3">
+          <label class="form-label fw-semibold">Comments for Funeral Parlour</label>
+          <textarea
+            class="form-control"
+            rows="3"
+            [(ngModel)]="correctionComments"
+            placeholder="Describe what needs to be corrected..."
+          ></textarea>
+          <div class="mt-2 text-end">
+            <button
+              class="btn btn-outline-secondary me-2"
+              (click)="showCorrectionForm = false; correctionComments = ''"
+            >Cancel</button>
+            <button
+              class="btn btn-warning"
+              [disabled]="!correctionComments.trim() || isSendingBack"
+              (click)="sendBackToFuneralParlour()"
+            >
+              {{ isSendingBack ? 'Sending...' : 'Send Back' }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Reject Form -->
+        <div *ngIf="showRejectForm" class="mt-3 border-top pt-3">
+          <label class="form-label fw-semibold">Rejection Reason</label>
+          <textarea
+            class="form-control"
+            rows="3"
+            [(ngModel)]="rejectionReason"
+            placeholder="Provide reason for rejection..."
+          ></textarea>
+          <div class="mt-2 text-end">
+            <button
+              class="btn btn-outline-secondary me-2"
+              (click)="showRejectForm = false; rejectionReason = ''"
+            >Cancel</button>
+            <button
+              class="btn btn-danger"
+              [disabled]="!rejectionReason.trim() || isRejecting"
+              (click)="rejectBooking()"
+            >
+              {{ isRejecting ? 'Rejecting...' : 'Confirm Reject' }}
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>

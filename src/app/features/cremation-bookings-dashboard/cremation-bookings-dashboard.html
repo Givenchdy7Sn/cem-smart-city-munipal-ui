@@ -1,0 +1,142 @@
+<div class="container-fluid">
+
+  <h3 class="mb-3">Cremation Bookings</h3>
+
+  <div class="card shadow-sm">
+
+    <div class="card-body">
+
+
+      <!-- Filters Row (hidden) -->
+      <ng-container *ngIf="false">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="btn-group">
+            <button class="btn btn-primary">
+              All Bookings <span class="badge bg-light text-dark">128</span>
+            </button>
+            <button class="btn btn-light">
+              Completed <span class="badge bg-secondary">34</span>
+            </button>
+            <button class="btn btn-light">
+              Pending Approval <span class="badge bg-warning text-dark">12</span>
+            </button>
+            <button class="btn btn-light">
+              Approved <span class="badge bg-success">70</span>
+            </button>
+            <button class="btn btn-light">
+              Rejected <span class="badge bg-danger">12</span>
+            </button>
+          </div>
+          <div class="d-flex">
+            <input
+              type="text"
+              class="form-control me-2"
+              placeholder="Search bookings..."
+              style="width:250px"
+            />
+            <button class="btn btn-outline-secondary me-2" (click)="loadBookings()" title="Refresh bookings">
+              <i class="bi bi-arrow-clockwise"></i>
+            </button>
+            <button class="btn btn-primary" (click)="createNewBooking()">
+              + New Booking
+            </button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Bookings Table -->
+
+      <table class="table table-hover align-middle">
+
+        <thead class="table-light">
+        <tr>
+          <th>Booking ID</th>
+          <th>Deceased Name</th>
+          <th>Funeral Parlour</th>
+          <th>Crematorium</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+        </thead>
+
+        <tbody *ngIf="bookings.length > 0; else noBookings">
+          <tr *ngFor="let booking of bookings">
+            <td>{{ booking.bookingRef }}</td>
+            <td>{{ booking.deceasedName ? booking.deceasedName : '—' }}</td>
+            <td>{{ booking.funeralParlourName || '—' }}</td>
+            <td>{{ booking.crematoriumName }}</td>
+            <td>{{ booking.cremationDate | date:'dd MMM yyyy' }}</td>
+            <td>
+              <span class="badge"
+                    [ngClass]="{
+                      'bg-success': booking.status === 'COMPLETED' || booking.status === 'APPROVED',
+                      'bg-warning text-dark': booking.status === 'PENDING_APPROVAL' || booking.status === 'BOOKING_IN_PROGRESS',
+                      'bg-danger': booking.status === 'REJECTED' || booking.status === 'CANCELLED',
+                      'bg-info text-dark': booking.status === 'CORRECTION_NEEDED'
+                    }">
+                {{ booking.status | enumToLabel }}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-sm btn-outline-primary" type="button" (click)="viewBooking(booking)">
+                View
+              </button>
+            </td>
+          </tr>
+        </tbody>
+
+        <ng-template #noBookings>
+          <tr>
+            <td colspan="7" class="text-center py-4">
+              <span *ngIf="isLoading">Loading bookings...</span>
+              <span *ngIf="!isLoading">{{ error || 'No bookings found.' }}</span>
+            </td>
+          </tr>
+        </ng-template>
+
+      </table>
+
+      <!-- Pagination -->
+
+      <div class="d-flex justify-content-between align-items-center">
+
+        <small>
+          Showing 1 to 6 of 128 results
+        </small>
+
+        <nav>
+
+          <ul class="pagination pagination-sm mb-0">
+
+            <li class="page-item">
+              <a class="page-link">Previous</a>
+            </li>
+
+            <li class="page-item active">
+              <a class="page-link">1</a>
+            </li>
+
+            <li class="page-item">
+              <a class="page-link">2</a>
+            </li>
+
+            <li class="page-item">
+              <a class="page-link">3</a>
+            </li>
+
+            <li class="page-item">
+              <a class="page-link">Next</a>
+            </li>
+
+          </ul>
+
+        </nav>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,5 @@
+export enum DocumentTypeEnum {
+  DEATH_CERTIFICATE = 'DEATH_CERTIFICATE',
+  CREMATION_FORM = 'CREMATION_FORM',
+  OTHER = 'OTHER'
+}

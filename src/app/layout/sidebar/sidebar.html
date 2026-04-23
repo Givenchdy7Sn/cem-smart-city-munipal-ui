@@ -1,0 +1,21 @@
+<div class="bg-background-cl text-white p-3 d-flex flex-column" style="width:250px; position:fixed; top:0; bottom:0; left:0; overflow-y:auto;">
+  <img src="logo.png" alt="Buffalo City Municipality" class="sidebar-logo mb-2" />
+  <h5 class="text-white fw-bold mb-4 text-center">Buffalo City<br><small class="fw-normal">Municipality</small></h5>
+
+  <ul class="nav flex-column">
+    @for (item of navigationItems; track item) {
+    <li class="nav-item">
+      <a
+        class="nav-link text-white"
+        [routerLink]="item.route"
+        [class.active]="isActive(item.route)">
+        {{ item.label }}
+      </a>
+    </li>
+    }
+  </ul>
+
+  <div class="mt-auto text-white text-center">
+    <small>Version 1.0.0</small>
+  </div>
+</div>
