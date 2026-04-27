@@ -8,6 +8,7 @@ export interface NextOfKin {
   phoneNumber: string;
   province: string;
   city: string;
+  isPrimary: boolean;
   addressLine1: string;
   addressLine2: string;
   addressLine3: string;

@@ -33,10 +33,12 @@ export class ViewCremationBooking implements OnInit {
       this.cremationService.updateBurialDetails(this.booking.id, burialDetails).subscribe({
         next: () => {
           this.isSavingBurial = false;
+          this.cdr.detectChanges();
           // Optionally show a success message
         },
         error: () => {
           this.isSavingBurial = false;
+          this.cdr.detectChanges();
           // Optionally show an error message
         }
       });
