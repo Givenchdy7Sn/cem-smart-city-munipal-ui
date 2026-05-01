@@ -29,6 +29,8 @@ export class CremationService {
       return this.http.put(`${this.apiUrl}/${bookingId}/burial`, burialDetails);
     }
   private apiUrl = '/app/api/internal/v1/municipality/cremation';
+  //  private apiUrl = 'http://localhost:8080/api/internal/v1/municipality/cremation';
+
 
   constructor(private http: HttpClient) {}
 
