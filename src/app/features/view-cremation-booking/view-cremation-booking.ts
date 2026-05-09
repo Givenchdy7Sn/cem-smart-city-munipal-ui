@@ -6,6 +6,7 @@ import { CremationService } from '../../services/cremation-booking.service';
 import { DocumentService } from '../../services/document.service';
 import { CremationBooking } from '../../models/cremation-booking.model';
 import { Document } from '../../models/document.model';
+import { CorrectionCommentHistory } from '../../models/correction-comment-history.model';
 import { EnumToLabelPipe } from '../../core/pipes/enum-to-label.pipe';
 
 @Component({
@@ -53,6 +54,7 @@ export class ViewCremationBooking implements OnInit {
   rejectionReason = '';
   showRejectForm = false;
   showCorrectionForm = false;
+  correctionHistory: CorrectionCommentHistory[] = [];
 
   constructor(
     private cremationService: CremationService,
@@ -85,6 +87,14 @@ export class ViewCremationBooking implements OnInit {
         this.isLoading = false;
         this.cdr.detectChanges();
       },
+    });
+
+    this.cremationService.getCorrectionHistory(bookingId).subscribe({
+      next: (history) => {
+        this.correctionHistory = history;
+        this.cdr.detectChanges();
+      },
+      error: () => { /* silently ignore */ }
     });
   }
 

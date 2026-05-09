@@ -6,6 +6,7 @@ import { CremationBooking } from '../models/cremation-booking.model';
 import { NextOfKin } from '../models/next-of-kin.model';
 import { Document } from '../models/document.model';
 import { CremationSlot } from '../models/cremation-slot.model';
+import { CorrectionCommentHistory } from '../models/correction-comment-history.model';
 
 @Injectable({
   providedIn: 'root'
@@ -96,5 +97,9 @@ export class CremationService {
 
   rejectBooking(bookingId: number, reason: string): Observable<CremationBooking> {
     return this.http.put<CremationBooking>(`${this.apiUrl}/${bookingId}/reject`, { reason });
+  }
+
+  getCorrectionHistory(cremationId: number): Observable<CorrectionCommentHistory[]> {
+    return this.http.get<CorrectionCommentHistory[]>(`${this.apiUrl}/${cremationId}/correction-history`);
   }
 }
