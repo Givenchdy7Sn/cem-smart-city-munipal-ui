@@ -39,4 +39,5 @@ export interface Deceased {
   certificateDate: string;
   nextOfKin1: NextOfKin;
   nextOfKin2: NextOfKin;
+  countryOfOrigin?: string;
 }
